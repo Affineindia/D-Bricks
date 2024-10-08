@@ -1,0 +1,12 @@
+streamlit-shadcn-ui>=0.1.18
+streamlit==1.28.1
+streamlit_extras
+pandas
+Pillow
+pyyaml
+streamlit_js_eval
+autogen
+fastapi
+pyautogen
+matplotlib
+seaborn
