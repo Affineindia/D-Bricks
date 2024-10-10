@@ -16,7 +16,8 @@ def upload_and_run():
     if st.session_state.login_flag:
         # Streamlit app
         st.title("Upload and Unzip a File")
-        model="GPT-4o"
+        # model="GPT-4o"
+        model=st.selectbox("Select Model ::",['gpt-4o','llava'])
         batch_name=st.text_input("Batch Name ::",max_chars=20)
         batch_name=batch_name+"-" +str(datetime.datetime.now())
         uploaded_files = st.file_uploader("Choose a ZIP file", type=["zip","png", "jpg", "jpeg", "gif", "bmp", "tiff","webp","jfif"],accept_multiple_files=True)
