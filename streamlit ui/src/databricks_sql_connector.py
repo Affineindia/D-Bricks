@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import os
 import streamlit as st
 
-load_dotenv()
+# load_dotenv()
 
 class DatabrickSqlConnect():
     """
@@ -24,16 +24,16 @@ class DatabrickSqlConnect():
             Exception: If there is an error during the connection initialization.
         """
         try:
-            self.server_hostname = os.getenv('server_hostname') or st.secrets.get("server_hostname") # Retrieve the server hostname from the environment variable
-            self.http_path = os.getenv('http_path') or st.secrets.get("http_path") # Retrieve the HTTP path from the environment variable
-            self.access_token = os.getenv('access_token') or st.secrets.get("access_token") # Retrieve the access token from the environment variable
-            
+            self.server_hostname = os.getenv('server_hostname') or st.secrets["credentials"]["server_hostname"] # Retrieve the server hostname from the environment variable
+            self.http_path = os.getenv('http_path') or st.secrets["credentials"]["http_path"] # Retrieve the HTTP path from the environment variable
+            self.access_token = os.getenv('access_token') or st.secrets["credentials"]["access_token"]  # Retrieve the access token from the environment variable
             # Establish a connection to the Databricks SQL endpoint using the retrieved credentials
             self.sql_connection = dbsql.connect(
                 server_hostname=self.server_hostname,
                 http_path=self.http_path,
                 access_token=self.access_token
             )
+
         except Exception as e:
             # Print an error message if there is an issue during initialization
             print("Error in DatabrickSQL initialization:", e)

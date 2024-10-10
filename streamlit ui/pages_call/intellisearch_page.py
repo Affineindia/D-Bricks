@@ -31,64 +31,64 @@ def intellisearch():
     </h2>
     </div>
     """, unsafe_allow_html=True) 
-
+    col1,col2,col3=st.columns([1,1,1])
     if st.session_state.login_flag:
-        with st.sidebar:
-            text_input=st.text_input("Text search ::")
-            uploaded_file=st.file_uploader("Image Search ::",type=["png", "jpg", "jpeg", "gif", "bmp", "tiff"])
-            button=st.button("Search")
-            if button:
-                if uploaded_file is not None:
-                    # image = Image.open(uploaded_file)
-                    # st.image(image, caption="Uploaded Image", use_column_width=True)
-                    file_name=uploaded_file.name
-                    blob_name=AzureStorage().search_upload_blob(file_name,uploaded_file)
-                    ## image Search
-                    try:
-                        text_input=""
-                        # job_id=367189284162575
-                        job_id=st.secrets.credentials.intellisearch_job_id
-                        data = {"job_id": job_id,
-                                "notebook_params": {"img_input": blob_name,
-                                                "text_input": text_input,
-                                                "uploaded_by":st.session_state.login_user
-                                                }
-                                }
-                        run_id,_=DatabrickJob().job_runs(job_id,
-                                               data)
-                        print("Run ID::",run_id)
-                        output=DatabrickJob().get_job_result(run_id)
-                        filter_ids=eval(output["notebook_output"]["result"])["ids"]
-                        if filter_ids=="No list found in the text.":
-                            filter_ids=[]
-                    except:
+        # with st.sidebar:
+        text_input=col1.text_input("Text search ::")
+        uploaded_file=col2.file_uploader("Image Search ::",type=["png", "jpg", "jpeg", "gif", "bmp", "tiff"])
+        button=col1.button("Search")
+        if button:
+            if uploaded_file is not None:
+                # image = Image.open(uploaded_file)
+                # st.image(image, caption="Uploaded Image", use_column_width=True)
+                file_name=uploaded_file.name
+                blob_name=AzureStorage().search_upload_blob(file_name,uploaded_file)
+                ## image Search
+                try:
+                    text_input=""
+                    # job_id=367189284162575
+                    job_id=st.secrets.credentials.intellisearch_job_id
+                    data = {"job_id": job_id,
+                            "notebook_params": {"img_input": blob_name,
+                                            "text_input": text_input,
+                                            "uploaded_by":st.session_state.login_user
+                                            }
+                            }
+                    run_id,_=DatabrickJob().job_runs(job_id,
+                                            data)
+                    print("Run ID::",run_id)
+                    output=DatabrickJob().get_job_result(run_id)
+                    filter_ids=eval(output["notebook_output"]["result"])["ids"]
+                    if filter_ids=="No list found in the text.":
                         filter_ids=[]
-                else:
-                    ## Text Search
-                    try:
-                        img_base64=""
-                        job_id=st.secrets.credentials.intellisearch_job_id
-                        data = {
-                            "job_id": job_id,
-                            "notebook_params": {
-                                                "img_input": img_base64,
-                                                "text_input": text_input,
-                                                "uploaded_by":st.session_state.login_user
-                                                }
-                                }
-                        run_id,_=DatabrickJob().job_runs(job_id,data)
-                        print("Run ID::",run_id)
-                        output=DatabrickJob().get_job_result(run_id)
-                        filter_ids=eval(output["notebook_output"]["result"])["ids"]
-                        if filter_ids=="No list found in the text.":
-                            filter_ids=[]
-                    except:
-                        filter_ids=[]
-                
-                print(filter_ids)
-                st.text(filter_ids)
+                except:
+                    filter_ids=[]
             else:
-                filter_ids=[]    #['c314cc8975b911efb3eec025a5494578', 'b37d5e3871a711ef801c14857ffeb9ff', '76eaa2f471be11ef9b2f14857ffeb9ff'] #[]
+                ## Text Search
+                try:
+                    img_base64=""
+                    job_id=st.secrets.credentials.intellisearch_job_id
+                    data = {
+                        "job_id": job_id,
+                        "notebook_params": {
+                                            "img_input": img_base64,
+                                            "text_input": text_input,
+                                            "uploaded_by":st.session_state.login_user
+                                            }
+                            }
+                    run_id,_=DatabrickJob().job_runs(job_id,data)
+                    print("Run ID::",run_id)
+                    output=DatabrickJob().get_job_result(run_id)
+                    filter_ids=eval(output["notebook_output"]["result"])["ids"]
+                    if filter_ids=="No list found in the text.":
+                        filter_ids=[]
+                except:
+                    filter_ids=[]
+            
+            print(filter_ids)
+            st.text(filter_ids)
+        else:
+            filter_ids=[]    #['c314cc8975b911efb3eec025a5494578', 'b37d5e3871a711ef801c14857ffeb9ff', '76eaa2f471be11ef9b2f14857ffeb9ff'] #[]
 
         # if len(st.session_state.ids_1)==0:#st.session_state.file_data_flag==False:
             ### metadata table

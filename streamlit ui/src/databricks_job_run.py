@@ -12,8 +12,8 @@ load_dotenv()
 class DatabrickJob():
 
     def __init__(self) -> None:
-        self.workspace_url=os.getenv('workspace_url') or st.secrets.get("workspace_url")
-        self.token=os.getenv('access_token') or st.secrets.get("access_token")
+        self.workspace_url=os.getenv('workspace_url') or st.secrets["credentials"]["workspace_url"]  
+        self.token=os.getenv('access_token') or st.secrets["credentials"]["access_token"] 
 
     def job_runs(self,job_id:int,input_data:dict):
         input_data['job_id']=job_id
