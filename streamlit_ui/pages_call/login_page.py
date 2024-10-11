@@ -16,7 +16,7 @@ def login():
                             -webkit-background-clip: text;
                             -webkit-text-fill-color: transparent;
                             text-shadow: none;'>
-                    FashionFinder
+                    Assetfind AI
     </span>
     <span style='font-size: 60%;'>
     <sup style='position: relative; top: 5px; color:white ;'>by Affine</sup> 
