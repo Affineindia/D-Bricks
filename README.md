@@ -1,14 +1,12 @@
 # Assetfind AI- IntelliTag & IntelliSearch Tool 
 ~ *Databricks Hackathon*
-------------------------------
+
 
 ### Description
----------------------------
 This project automates the identification and tagging of key product attributes using prompt engineering and keyword extraction. It integrates a GenAI-based search engine for image-to-image and text-to-image searches, leveraging Azure OpenAI/ Databricks LLMs and other Databricks capabilities. Databricks Unity Catalog is used to store and manage data, while scheduled jobs handle automated runs. The output is an interactive dashboard for seamless image uploads and attribute-based search.
 
 
 ### Table of Contents
--------------------------------
 1. [Folder Structure](#folder-structure)
 2. [Technologies Used](#)
 3. [Intellitag flow Diagram](#)
@@ -18,7 +16,6 @@ This project automates the identification and tagging of key product attributes 
 
 
 ## 1. Folder Structure
-------------------------------
 Here is the structure of the project:
 
 ```plaintext
@@ -58,7 +55,6 @@ Here is the structure of the project:
 ```
 
 ## 2. Technologies Used
-------------------------------
 1. **Azure Databricks**: 
 
       Offers a unified platform for processing, analyzing, and generating insights from data, while facilitating the seamless integration of LLM models and automated workflows.
@@ -107,16 +103,16 @@ Here is the structure of the project:
 
 
 ## 3. IntelliTag Flow Diagram
-------------------------------
+
 
 
 ## 4. IntelliSearch Flow Diagram
-------------------------------
+
 
 
 
 ## 5. Databricks Workflows
-------------------------------
+
 ### DAG Flow Overview
 
 ##### Overview
@@ -140,13 +136,15 @@ Some tasks in the DAG are executed conditionally based on the outcome of previou
 
 
 ####  Note
---------------------------------------
+
 This documentation provides a comprehensive overview of the DAG flow within the Databricks workflow for Intellitag, keyword indexing, and uploaded images as well as Intellisearch. Understanding this flow is essential for effectively managing and optimizing task execution to achieve project objectives efficiently.
 
 1. IntelliTag & Indexing of Tags/Images
+
 ![image](https://github.com/user-attachments/assets/1ff08e48-fe63-4afa-940a-397119dab861)
 
 2. IntelliSearch
+
 ![image](https://github.com/user-attachments/assets/17d91db7-18d4-4780-a576-ae5e4def8326)
 
 
