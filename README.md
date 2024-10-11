@@ -1,9 +1,10 @@
-# IntelliTag & IntelliSearch Tool ~ Databricks Hackathon
+# Assetfind AI- IntelliTag & IntelliSearch Tool 
+~ *Databricks Hackathon*
 ------------------------------
 
 ### Description
 ---------------------------
-This project automates the identification and tagging of key product attributes using prompt engineering and keyword extraction. It integrates a GenAI-based search engine for image-to-image and text-to-image searches, leveraging Azure OpenAI LLMs and Databricks capabilities. Databricks Unity Catalog is used to store and manage data, while scheduled jobs handle automated runs. The output is an interactive dashboard for seamless image uploads and attribute-based search.
+This project automates the identification and tagging of key product attributes using prompt engineering and keyword extraction. It integrates a GenAI-based search engine for image-to-image and text-to-image searches, leveraging Azure OpenAI/ Databricks LLMs and other Databricks capabilities. Databricks Unity Catalog is used to store and manage data, while scheduled jobs handle automated runs. The output is an interactive dashboard for seamless image uploads and attribute-based search.
 
 
 ### Table of Contents
@@ -24,10 +25,14 @@ Here is the structure of the project:
   <Affine IntelliTag-Search>/
   │
   ├── jobs/
-  │   ├── demo - Embeddings_Indexing.ipynb
-  │   ├── demo - Intelli Tag.ipynb
-  │   ├── demo - Intellisearch.ipynb
+  │   ├── demo - Embeddings_Indexing
+  │   ├── demo - Intelli Tag
+  │   ├── demo - Intellisearch
   │   └── requirements.txt
+  │    
+  ├── notebook/   
+  │   ├── LLM Registry                       # External Hugging Face LLM Registry
+  │   └── Evaluation_without_and_with_agent  # custom evaluation matrix defined
   │   
   ├── streamlit ui/  
   │   ├── Dockerfile
@@ -54,31 +59,49 @@ Here is the structure of the project:
 
 ## 2. Technologies Used
 ------------------------------
-1. **Azure OpenAI**: 
-
-      Provides large language models (LLMs) to generate product tags and perform text-to-image searches using prompt engineering, enabling intelligent and automated search capabilities.
-   
-2. **Azure Blob Storage**: 
-
-      Stores product images and metadata efficiently, serving as a scalable and secure repository for the image data used in the project.
-
-3. **Azure Databricks**: 
+1. **Azure Databricks**: 
 
       Offers a unified platform for processing, analyzing, and generating insights from data, while facilitating the seamless integration of LLM models and automated workflows.
 
-4. **Azure Unity Catalog**: 
+2. **Databricks Unity Catalog**: 
 
       Provides a centralized governance layer to manage and secure data across Databricks, ensuring organized storage and retrieval of image attributes and search results.
 
-5. **GitHub**: 
+3. **Databricks Delta Table Indexing**:
 
-      Used for version control and collaboration, hosting the project's codebase, ensuring continuous integration, and managing updates to the search engine and tagging framework.
+      Optimizes data retrieval by enabling faster querying and efficient access to large datasets, crucial for managing image metadata.
 
-6. **Autogen Agent**: 
+4. **Databricks Vector Search Endpoint**: 
+
+      Powers high-performance similarity searches for image and text embeddings, enabling efficient search functionalities.
+
+5. **Databricks Model Registry & Serving**: 
+
+      Manages model tracking and deployment, ensuring seamless scaling and real-time or batch inference for machine learning models.
+
+6. **Azure OpenAI**: 
+
+      Provides large language models (LLMs) to generate product tags and perform text-to-image searches using prompt engineering, enabling intelligent and automated search capabilities.
+   
+7. **Azure Blob Storage**: 
+
+      Stores product images and metadata efficiently, serving as a scalable and secure repository for the image data used in the project.
+
+8. **Azure Key Vault**: 
+
+      Azure Key Vault is a cloud service used to securely store and manage sensitive information like secrets, keys, and certificates for protecting access to applications and resources.
+
+
+9. **Autogen Agent**: 
               
       An automation tool that streamlines the image tagging and search processes, reducing the need for manual intervention by continuously improving search and tagging results.
 
-7. **Streamlit**:
+10. **GitHub**: 
+
+      Used for version control and collaboration, hosting the project's codebase, ensuring continuous integration, and managing updates to the search engine and tagging framework.
+
+
+11. **Streamlit**:
   
       Python-based framework used to develop the interactive dashboard, allowing users to upload images, perform keyword-based searches, and view results in real time.
 
@@ -111,5 +134,15 @@ Some tasks in the DAG are executed conditionally based on the outcome of previou
 ##### Task Details
 
   Below is a detailed breakdown of the tasks within the DAG:
+
+
+
+
+
+####  Note
+--------------------------------------
+This documentation provides a comprehensive overview of the DAG flow within the Databricks workflow for Intellitag, keyword indexing, and uploaded images as well as Intellisearch. Understanding this flow is essential for effectively managing and optimizing task execution to achieve project objectives efficiently.
+
+
 
 
