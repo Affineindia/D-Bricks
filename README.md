@@ -148,6 +148,29 @@ This documentation provides a comprehensive overview of the DAG flow within the 
 ![image](https://github.com/user-attachments/assets/17d91db7-18d4-4780-a576-ae5e4def8326)
 
 
+## 6. How to Run the Streamlit Application
+
+1. Clone the Repository
+  Run the following command to clone the repository:
+  ```bash
+  git clone https://github.com/sanket-affine/D-Bricks.git
+  ```
+2. Navigate to the Directory
+  Change the directory to the streamlit_ui folder:
+```bash
+cd streamlit_ui
+```
+3. Install Requirements
+  Install the required dependencies:
+```bash
+pip install -r requirements.txt
+```
+4. Run the Application
+  Start the Streamlit application with the following command:
+```bash
+streamlit run app.py --global.developmentMode=false
+```
+
 
 
 
