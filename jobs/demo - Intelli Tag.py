@@ -1,6 +1,6 @@
 # Databricks notebook source
 # MAGIC %md
-# MAGIC ### Install All Modules
+# MAGIC ### Install All Required Packages
 
 # COMMAND ----------
 
@@ -11,7 +11,7 @@
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ### Import all Required Packages
+# MAGIC ### Import Packages
 
 # COMMAND ----------
 
@@ -542,8 +542,8 @@ bottomwear_metadata_json = {
                         "Gender": "string",
                         "Pattern": "string",
                         "Bottom Style": "string",
-                        "Waist Rise": "string",
                         "Bottom Length": "string",
+                        "Waist Rise": "string",
                         "Fabric": "string",
                         "Brand": "string",
                         "Occasion": "string",
@@ -581,11 +581,6 @@ Format:
   [/INST]"""
 
 # COMMAND ----------
-
-import requests
-import json
-import os
-
 
 bottomwear_llava_system_message = f"""[INST] <image>
 You will receive an image_path as input.
@@ -667,89 +662,133 @@ def llava_call(img_url,llava_system_message, databricks_llm_url, databricks_pat,
 
 # COMMAND ----------
 
-def llava_response(img_url):        
-    result={"generated_tags":[]}
-    msg="""[INST] <image> Find out the apparel in focus present in the given image, from below list:["topwear", "bottomwear"].
+def llava_response(img_url):
+    """
+    Function to analyze an apparel image using LLaVA model to identify the apparel in focus
+    (either "topwear" or "bottomwear") and generate relevant tags.
+
+    Parameters:
+    img_url (str): The URL of the image to be analyzed.
+
+    Returns:
+    dict: A dictionary with a key 'generated_tags', containing a list of tags identified
+          from the image. Each tag corresponds to a category like 'topwear', 'bottomwear', or both.
+
+    The function works in the following steps:
+    1. Sends the image URL to the LLaVA model with an instruction to identify apparel in the image.
+    2. Based on the identified item(s) (topwear/bottomwear), it sends another call to generate specific tags.
+    3. Collects and appends the generated tags in the result dictionary.
+    """
+    
+    result = {"generated_tags": []}  # Initialize the result dictionary to hold generated tags
+
+    # The message sent to the LLaVA model to identify the type of apparel (topwear, bottomwear, or both)
+    msg = """[INST] <image> Find out the apparel in focus present in the given image, from below list:\n["topwear", "bottomwear"]. 
     example:["topwear"],["bottomwear"],["topwear", "bottomwear"], []
     output:
     [/INST]"""
-    item_list=llava_call(img_url=img_url,
-                                llava_system_message=msg,
-                                databricks_llm_url=llava_base_url,
-                                databricks_pat=API_TOKEN)
+
+    # Call the LLaVA model with the image URL and the system message to get the identified apparel list
+    item_list = llava_call(img_url=img_url,
+                           llava_system_message=msg,
+                           databricks_llm_url=llava_base_url,
+                           databricks_pat=API_TOKEN)
+
+    # Loop through the list of identified apparel items and set the respective system message
     for item in ast.literal_eval(item_list):
-        if item=="topwear":
-            llava_system_message=topwear_llava_system_message
-        elif item=="bottomwear":
-            llava_system_message=bottomwear_llava_system_message
-    # for llava_system_message in [topwear_llava_system_message,bottomwear_llava_system_message]:
-        result_=llava_call(img_url=img_url,
-                        llava_system_message=llava_system_message,
-                        databricks_llm_url=llava_base_url,
-                        databricks_pat=API_TOKEN
-                        )
+        if item == "topwear":
+            llava_system_message = topwear_llava_system_message  # Set system message for topwear
+        elif item == "bottomwear":
+            llava_system_message = bottomwear_llava_system_message  # Set system message for bottomwear
+
+        # Call the LLaVA model again to generate detailed tags for the identified apparel
+        result_ = llava_call(img_url=img_url,
+                             llava_system_message=llava_system_message,
+                             databricks_llm_url=llava_base_url,
+                             databricks_pat=API_TOKEN)
+        
+        # Print the result for debugging
         print(result_)
+
+        # If tags are generated, append them to the result dictionary
         if result_:
             result['generated_tags'].append(ast.literal_eval(result_))
+
+    # Return the final result with all generated tags
     return result
+
 
 # COMMAND ----------
 
-uploadedby = dbutils.widgets.get("uploadedby")
-date_str=dbutils.widgets.get("generatedat")
-tag_datetime = datetime.datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S.%f')
+## input from the user
 # uploadedby = "sanket.bodake@affine.ai"
 # date_str="12:3444"
 # tag_datetime = "12:44"
 
+uploadedby = dbutils.widgets.get("uploadedby")
+date_str=dbutils.widgets.get("generatedat")
+tag_datetime = datetime.datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S.%f')
+
+## Azure Blob storage
 connection_string=dbutils.secrets.get(scope="dbx-us-scope",key="storage-account-connection-string") 
 storage_container_name="intellitag"
+
+## Databricks llm api
 API_TOKEN =dbutils.secrets.get(scope="dbx-us-scope",key="databricks-PAT") 
 llava_base_url="https://adb-8566293101107632.12.azuredatabricks.net/serving-endpoints/affine_llava_v8/invocations"
-tag_flag='No'
 
+## SQL query to retrieve records where tags haven't been generated yet
+tag_flag = 'No'
+df = spark.sql(f"SELECT * FROM intellitag_catalog.intellitag_dbx.{file_metadata} WHERE created_by == '{uploadedby}' and tag_generated == '{tag_flag}'")
 
-df=spark.sql(f"SELECT * FROM intellitag_catalog.intellitag_dbx.{file_metadata} WHERE created_by=='{uploadedby}' and tag_generated=='{tag_flag}'")
-
+# Display the DataFrame to verify the retrieved records
 display(df)
-# final_dict_list=[]
+
+# Loop through each row of the DataFrame to process the records
 for row in df.collect():
 
     #--------------------- Load and display the image----------------------------
-    image_path="/dbfs/mnt/my_intellitag_mount/"+row.file_path
-    model_type= row.model
+    # Construct the image path from the file path stored in the database
+    image_path = "/dbfs/mnt/my_intellitag_mount/" + row.file_path
 
-    if model_type.lower()=="gpt-4o":
-    
-        #-----------------------Run the Agent ---------------------------------------
+    # Get the model type (e.g., GPT-4o or LLAVA) to determine which method to use
+    model_type = row.model
+
+    #--------------------- Process based on model type --------------------------
+    if model_type.lower() == "gpt-4o":
+        # If the model type is GPT-4o, format the image path and run the agent for reflection with LLM
         img_path_format = f"image_path:   <img {image_path}>"
         result = user_proxy.initiate_chat(
             manager, message=img_path_format, summary_method="reflection_with_llm"
         )
- 
-        #----------------------Get final dict --------------------------
-        final_dict=get_final_dict(row,result,model_type)
+        
+        # Generate the final dictionary of tags based on the result and model type
+        final_dict = get_final_dict(row, result, model_type)
 
-    elif model_type.lower()=="llava":
-        result=llava_response(img_url=row.file_path)
-        final_dict=get_final_dict(row,result,model_type)
-        # final_dict_list.append(final_dict)
-       
-     #----------------------save final dict to table --------------------------
+    elif model_type.lower() == "llava":
+        # If the model type is LLAVA, call the llava_response function to analyze the image
+        result = llava_response(img_url=row.file_path)
+        
+        # Generate the final dictionary of tags for LLAVA model
+        final_dict = get_final_dict(row, result, model_type)
+
+    #---------------------- Save final dictionary to the table --------------------
+    # Save the final dictionary to the target table if it's not empty
     if final_dict:
-        saved_flag=save_final_dict_to_table(final_dict)
+        saved_flag = save_final_dict_to_table(final_dict)
 
-    #-------------------------------------------------------------------------------
+    #--------------------- Update the record status -----------------------------
+    # If the dictionary was successfully saved, update the `tag_generated` status in the database
     if saved_flag:
-        # Perform the update using SQL
         spark.sql(f"""
             UPDATE intellitag_catalog.intellitag_dbx.{file_metadata}
             SET tag_generated = 'Yes',
-                tag_generated_at='{tag_datetime}'
+                tag_generated_at = '{tag_datetime}'
             WHERE id = '{row.id}'
         """)
-        
-    # delete cache folder
+    
+    #--------------------- Clean up and wait before processing the next file ------------------
+    # Delete the cache folder to avoid storage overload and wait for 30 seconds before processing the next record
     delete_Cach_folder()
     time.sleep(30)
 
@@ -917,9 +956,3 @@ dbutils.notebook.exit("Done")
 #     # Return the final cleaned result
 #     return result
 
-
-# COMMAND ----------
-
-# MAGIC %md
-# MAGIC 1. ALL tag ok, but still ALL-GOOD Not written in evaluator.
-# MAGIC 2. Predictor format 
