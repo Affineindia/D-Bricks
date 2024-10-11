@@ -450,7 +450,7 @@ def get_final_dict(row,result, model_type):
             predict_dict={}
             final_dict['evaluator']=str(eval_dict)
             final_dict['predictor']=str(predict_dict)
-            final_dict['final_predictor']=result
+            final_dict['final_predictor']=str(result)
             final_dict['summary']=""
             final_dict['cost']=""
             # flag will be True if text embedding is done
@@ -684,9 +684,14 @@ def llava_response(img_url):
     result = {"generated_tags": []}  # Initialize the result dictionary to hold generated tags
 
     # The message sent to the LLaVA model to identify the type of apparel (topwear, bottomwear, or both)
-    msg = """[INST] <image> Find out the apparel in focus present in the given image, from below list:\n["topwear", "bottomwear"]. 
-    example:["topwear"],["bottomwear"],["topwear", "bottomwear"], []
-    output:
+    # msg = """[INST] <image> Find out the apparel in focus present in the given image, from below list:\n["topwear", "bottomwear"]. 
+    # example:["topwear"],["bottomwear"],["topwear", "bottomwear"], []
+    # output:
+    # [/INST]"""
+
+    msg="""[INST] <image> Identify the apparel in focus present in the given image from the following list: ["topwear", "bottomwear"]. The output should strictly be a list, with items matching those found in the image. The output must follow the format: ["topwear"], ["bottomwear"], ["topwear", "bottomwear"], or [].
+    Ensure the output is always in a list format.
+    Output:
     [/INST]"""
 
     # Call the LLaVA model with the image URL and the system message to get the identified apparel list
@@ -755,7 +760,7 @@ for row in df.collect():
     #--------------------- Load and display the image----------------------------
     # Construct the image path from the file path stored in the database
     image_path = "/dbfs/mnt/my_intellitag_mount/" + row.file_path
-
+    print("Image Path ::",image_path)
     # Get the model type (e.g., GPT-4o or LLAVA) to determine which method to use
     model_type = row.model
 
