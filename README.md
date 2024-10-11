@@ -143,6 +143,13 @@ Some tasks in the DAG are executed conditionally based on the outcome of previou
 --------------------------------------
 This documentation provides a comprehensive overview of the DAG flow within the Databricks workflow for Intellitag, keyword indexing, and uploaded images as well as Intellisearch. Understanding this flow is essential for effectively managing and optimizing task execution to achieve project objectives efficiently.
 
+1. IntelliTag & Indexing of Tags/Images
+![image](https://github.com/user-attachments/assets/1ff08e48-fe63-4afa-940a-397119dab861)
+
+2. IntelliSearch
+![image](https://github.com/user-attachments/assets/17d91db7-18d4-4780-a576-ae5e4def8326)
+
+
 
 
 
