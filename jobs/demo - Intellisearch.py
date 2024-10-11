@@ -457,6 +457,7 @@ def get_input_image_tag(blob_name:str,
 
 # If both image and text input are provided
 if input_img!="" and text_input!="":
+   print("Processing image input and text input..") 
    # Get the description for the input image
    input_img_description=get_input_image_tag(input_img,text_input)
 
