@@ -117,7 +117,7 @@ Here is the structure of the project:
 
 ##### Overview
 
-The DAG (Directed Acyclic Graph) represents the workflow for the AffineReviewSummarization project, orchestrating various tasks in a sequential and conditional manner to achieve specific data processing and model training objectives. This DAG runs daily on a schedule basis for batch processing.
+The DAG (Directed Acyclic Graph) represents the workflow for the Assetfind AI project, orchestrating various tasks in a sequential and conditional manner to achieve specific data processing and model training objectives. This DAG runs from the databricks api.
 
 ##### Task Dependencies
 
@@ -125,12 +125,27 @@ Tasks within the DAG are organized based on dependencies, ensuring that certain 
 
 ##### Task Execution Conditions
 
-Some tasks in the DAG are executed conditionally based on the outcome of previous tasks or external conditions. Conditional execution logic is defined using the condition_task attribute, which compares a specific value or expression with the outcome of a preceding task.
+Some tasks in the DAG are executey basd conditionalled on the outcome of previous tasks or external conditions. Conditional execution logic is defined using the condition_task attribute, which compares a specific value or expression with the outcome of a preceding task.
 
 ##### Task Details
 
-  Below is a detailed breakdown of the tasks within the DAG:
+Below is a detailed breakdown of the tasks within the DAG:
 
+1. IntelliTag Task (`Intelli Tag`):
+  - Responsible for generating tags based on the defined taxonomy and prompts, using the `demo - Intelli Tag.py` script. The results are saved into the catalog Delta table.
+  - This task is executable on the Databricks cluster.
+  - Indexing of Tags and Images Task (demo - Intellisearch):
+
+2. Indexes the generated tags and images Task (`Intellisearch`):
+  - Creates the Databricks vector endpoint if it doesn't already exist.
+  - Syncs the embedding table with the vector store.
+  - This task depends on the successful completion of the IntelliTag task.
+
+3. IntelliSearch Task (`Embeddings_Indexing`):
+
+  - Runs through the Databricks API.
+  - Performs semantic search based on user input data.
+  - Provides recommendations based on user inputs using the `demo - Embeddings_Indexing.py`.
 
 
 
