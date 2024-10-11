@@ -100,7 +100,7 @@ class DatabrickSqlTable(Processing):
 
     def featch_keywords_data(self,uploaded_by):
         # query=f"select * from intellitag_catalog.intellitag_dbx.file_metadata where uploaded_by='{uploaded_by}'"
-        query=f"""SELECT t1.id,t1.image_name,t1.file_path,t1.created_by,t1.upload_time,t2.final_predictor
+        query=f"""SELECT t1.id,t1.image_name,t1.file_path,t1.created_by,t1.upload_time,t2.final_predictor,t2.model_type
             FROM (
             SELECT *
             FROM intellitag_catalog.intellitag_dbx.file_metadata

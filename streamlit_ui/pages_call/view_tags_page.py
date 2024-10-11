@@ -46,17 +46,21 @@ def view_tag():
         list_of_img_name=st.session_state.tag_data['image_name'].to_list()
         list_of_uploaded_by=st.session_state.tag_data['created_by'].to_list()
         list_of_uploaded_at=st.session_state.tag_data['upload_time'].to_list()
-
+        list_of_model_type=st.session_state.tag_data['model_type'].to_list()
         output_dict={}
         col1, col2 = st.columns([0.5, 1], gap="large")
         for n,i in enumerate(st.session_state.tag_data['final_predictor'].to_list()):
+            list_of_dict=ast.literal_eval(i[i.find("["):i.find("]")+1])
+            # for dict1 in list_of_dict:
+            #     dict1["Model Type"]=list_of_model_type[n] 
             img_name=list_of_img_name[n]   # id=ids_list[n]
             output_dict[img_name]={"img_url":img_url_list[n],
                             "id":ids_list[n],
                             "image_name":list_of_img_name[n],
                             "uploaded_by":list_of_uploaded_by[n],
                             "uploaded_at":list_of_uploaded_at[n],
-                            "tags":ast.literal_eval(i[i.find("["):i.find("]")+1])}
+                            "model_type":list_of_model_type[n],
+                            "tags":list_of_dict}
 
         ## select id
         selected_id=col1.selectbox("Select the Image ::",list_of_img_name) #  ids_list
@@ -81,14 +85,14 @@ def view_tag():
                                 .hover-container .hover-overlay {
                                     display: none;
                                     position: absolute;
-                                    top: 550px;
-                                    left: 300px;
+                                    top: 450px;
+                                    left: 200px;
                                     transform: translate(-50%, -50%);
                                     background-color: rgba(0, 0, 0, 0.8);
                                     color: white;
                                     padding: 20px;
                                     width: 400px;
-                                    height: 250px;
+                                    height: 235px;
                                     box-sizing: border-box;
                                     border-radius: 5px;
                                     z-index: 1000;
@@ -100,7 +104,7 @@ def view_tag():
                                 .hover-container img {
                                     display: block;
                                     width: 200px;
-                                    height: 200px;
+                                    height: 250px;
                                     border-radius: 12px;
                                 }
                                 .hover-container .hover-overlay table {
@@ -131,6 +135,10 @@ def view_tag():
                                     <tr>
                                         <th>Uploaded At</th>
                                         <td>{st.session_state.output_list_dict_1["uploaded_at"]}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Model Type</th>
+                                        <td>{st.session_state.output_list_dict_1["model_type"]}</td>
                                     </tr>
                                 </table>
                             </div>
