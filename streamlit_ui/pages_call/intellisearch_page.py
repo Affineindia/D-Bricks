@@ -45,7 +45,8 @@ def intellisearch():
                 blob_name=AzureStorage().search_upload_blob(file_name,uploaded_file)
                 ## image Search
                 try:
-                    text_input=""
+                    if not text_input:
+                        text_input=""
                     # job_id=367189284162575
                     job_id=st.secrets.credentials.intellisearch_job_id
                     data = {"job_id": job_id,
