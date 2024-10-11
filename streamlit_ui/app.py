@@ -11,6 +11,8 @@ from pages_call.view_tags_page import view_tag
 
 st.set_page_config(layout="wide")
 
+# st.logo("https://affine.ai/wp-content/uploads/2024/06/logo.png", icon_image="https://affine.ai/wp-content/uploads/2024/06/logo.png")
+
 def clear_session(key):
     print(key)
     st.session_state.clear()

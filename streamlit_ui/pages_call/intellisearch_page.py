@@ -87,7 +87,7 @@ def intellisearch():
                     filter_ids=[]
             
             print(filter_ids)
-            st.text(filter_ids)
+            # st.text(filter_ids)
         else:
             filter_ids=[]    #['c314cc8975b911efb3eec025a5494578', 'b37d5e3871a711ef801c14857ffeb9ff', '76eaa2f471be11ef9b2f14857ffeb9ff'] #[]
 
