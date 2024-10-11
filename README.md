@@ -117,7 +117,7 @@ Here is the structure of the project:
 
 ##### Overview
 
-The DAG (Directed Acyclic Graph) represents the workflow for the Assetfind AI project, orchestrating various tasks in a sequential and conditional manner to achieve specific data processing and model training objectives. This DAG runs from the databricks api.
+The DAG (Directed Acyclic Graph) represents the workflow for the Assetfind AI project, orchestrating various tasks in a sequential and conditional manner to achieve specific data processing, keyword generation, indexing and semantic search objectives. This DAG runs from the databricks api.
 
 ##### Task Dependencies
 
