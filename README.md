@@ -19,7 +19,7 @@ This project automates the identification and tagging of key product attributes 
 Here is the structure of the project:
 
 ```plaintext
-  <Affine IntelliTag-Search>/
+  <Affine Assetfind AI>/
   │
   ├── jobs/
   │   ├── demo - Embeddings_Indexing
