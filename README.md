@@ -53,7 +53,7 @@ Here is the structure of the project:
   ├── .gitignore
   └── README.md
 ```
-
+--------------------------------------------
 ## 2. Technologies Used
 1. **Azure Databricks**: 
 
@@ -101,16 +101,16 @@ Here is the structure of the project:
   
       Python-based framework used to develop the interactive dashboard, allowing users to upload images, perform keyword-based searches, and view results in real time.
 
-
+------------------------------------------------------------------------
 ## 3. IntelliTag Flow Diagram
 
 
-
+------------------------------------------------------------------
 ## 4. IntelliSearch Flow Diagram
 
 
 
-
+-----------------------------------------------------------------
 ## 5. Databricks Workflows
 
 ### DAG Flow Overview
@@ -134,7 +134,7 @@ Some tasks in the DAG are executed conditionally based on the outcome of previou
 
 
 
-
+-------------------------------
 ####  Note
 
 This documentation provides a comprehensive overview of the DAG flow within the Databricks workflow for Intellitag, keyword indexing, and uploaded images as well as Intellisearch. Understanding this flow is essential for effectively managing and optimizing task execution to achieve project objectives efficiently.
