@@ -77,7 +77,7 @@ Here is the structure of the project:
 
 6. **Azure OpenAI**: 
 
-      Provides large language models (LLMs) to generate product tags and perform text-to-image searches using prompt engineering, enabling intelligent and automated search capabilities.
+      Provides large language models (LLMs) to generate product tags and perform text/image-to-image searches using prompt engineering, enabling intelligent and automated search capabilities.
    
 7. **Azure Blob Storage**: 
 
@@ -125,7 +125,7 @@ Tasks within the DAG are organized based on dependencies, ensuring that certain 
 
 ##### Task Execution Conditions
 
-Some tasks in the DAG are executey basd conditionalled on the outcome of previous tasks or external conditions. Conditional execution logic is defined using the condition_task attribute, which compares a specific value or expression with the outcome of a preceding task.
+Some tasks in the DAG are executed conditionally based on the outcome of previous tasks or external conditions. Conditional execution logic is defined using the `condition_task` attribute, which compares a specific value or expression with the outcome of a preceding task.
 
 ##### Task Details
 
