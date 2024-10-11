@@ -641,10 +641,11 @@ def llava_call(img_url,llava_system_message, databricks_llm_url, databricks_pat,
     response = requests.post(url=databricks_llm_url,
                              json=data, 
                              headers=headers)
-
+    result_1=json.dumps(response.json())
+    print("ROW results",result_1)
     # Parse the JSON response into a Python object and extract the predictions text
-    text = ast.literal_eval(json.dumps(response.json()))["predictions"][0]
-
+    text = eval(result_1)["predictions"][0]
+    print("Text ::",text)
     # Define the marker that indicates where the actual response starts
     marker = '[/INST]'
     position = text.find(marker)
@@ -655,7 +656,7 @@ def llava_call(img_url,llava_system_message, databricks_llm_url, databricks_pat,
     else:
         # If the marker is not found, return an empty string
         result = ""
-
+    print("Final Results ::",result)
     # Return the final cleaned result
     return result
 
@@ -693,12 +694,16 @@ def llava_response(img_url):
                            llava_system_message=msg,
                            databricks_llm_url=llava_base_url,
                            databricks_pat=API_TOKEN)
+    
+    print("Items Detected ::",item_list)
 
     # Loop through the list of identified apparel items and set the respective system message
     for item in ast.literal_eval(item_list):
         if item == "topwear":
+            print("Categorized ::",item)
             llava_system_message = topwear_llava_system_message  # Set system message for topwear
         elif item == "bottomwear":
+            print("Categorized ::",item)
             llava_system_message = bottomwear_llava_system_message  # Set system message for bottomwear
 
         # Call the LLaVA model again to generate detailed tags for the identified apparel
