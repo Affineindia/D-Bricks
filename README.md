@@ -37,7 +37,7 @@ Here is the structure of the project:
   │   ├── app.py
   │   ├──.dockerignore
   │   ├── pages_call/
-  │   │   ├── intellisearch_page.py.py
+  │   │   ├── intellisearch_page.py
   │   │   ├── login_page.py
   │   │   ├── upload_page.py
   │   │   ├── user_add_page.py

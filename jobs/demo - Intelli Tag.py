@@ -1,16 +1,5 @@
 # Databricks notebook source
 # MAGIC %md
-# MAGIC ### Install All Required Packages
-
-# COMMAND ----------
-
-# MAGIC %pip install --quiet -r requirements.txt
-# MAGIC
-# MAGIC %restart_python
-
-# COMMAND ----------
-
-# MAGIC %md
 # MAGIC ### Import Packages
 
 # COMMAND ----------
@@ -24,11 +13,13 @@ from pyspark.sql.types import StructType, StructField, IntegerType, StringType, 
 ############
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
-import ast
 import datetime
-import time
-import os
+import requests
 import shutil
+import time
+import json
+import ast
+import os
 
 # COMMAND ----------
 
@@ -553,9 +544,7 @@ bottomwear_metadata_json = {
 
 # COMMAND ----------
 
-import requests
-import json
-import os
+
  
 topwear_llava_system_message = f"""[INST] <image>
 You will receive an image_path as input.

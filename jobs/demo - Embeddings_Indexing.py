@@ -1,21 +1,5 @@
 # Databricks notebook source
 # MAGIC %md
-# MAGIC ##### Install Necessary Packages
-# MAGIC ---------------------------------------------
-
-# COMMAND ----------
-
-# install necessary packages
-%pip install timm
-%pip install einops
-%pip install msrest
-%pip install azure-cognitiveservices-vision-computervision==0.9.0
-%pip install databricks-vectorsearch==0.22
-dbutils.library.restartPython()
-
-# COMMAND ----------
-
-# MAGIC %md
 # MAGIC ##### Import All Required Packages
 # MAGIC ---------------------------
 
@@ -39,6 +23,14 @@ import requests
 import time
 import logging
 import re
+import torch
+
+##############################################################
+from databricks.vector_search.client import VectorSearchClient
+from transformers import AutoModel, AutoProcessor
+from databricks.sdk import WorkspaceClient
+import databricks.sdk.service.catalog as c
+import time 
 import torch
 
 # COMMAND ----------
@@ -263,16 +255,6 @@ process_and_store_embeddings (df, uploaded_by, schema,"azure")
 
 # MAGIC %md
 # MAGIC ### indexing
-
-# COMMAND ----------
-
-# import necessary library
-from databricks.vector_search.client import VectorSearchClient
-from transformers import AutoModel, AutoProcessor
-from databricks.sdk import WorkspaceClient
-import databricks.sdk.service.catalog as c
-import time 
-import torch
 
 # COMMAND ----------
 

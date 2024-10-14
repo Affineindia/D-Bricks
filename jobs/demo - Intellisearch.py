@@ -1,26 +1,9 @@
 # Databricks notebook source
-# MAGIC %md
-# MAGIC #### Install All Required Packages
-
-# COMMAND ----------
-
-# MAGIC %pip install databricks-vectorsearch==0.22 
-# MAGIC %pip install timm
-# MAGIC %pip install einops
-# MAGIC #azure custom vision embedding
-# MAGIC %pip install msrest
-# MAGIC %pip install azure-cognitiveservices-vision-computervision==0.9.0
-# MAGIC
-# MAGIC # %restart_python
-# MAGIC dbutils.library.restartPython()
-
-# COMMAND ----------
-
 # import necessary library
 from databricks.vector_search.client import VectorSearchClient
 from databricks.sdk import WorkspaceClient
 import databricks.sdk.service.catalog as c
-# from transformers import AutoModel, AutoProcessor
+
 # Azure custom vision
 from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient, ContentSettings,generate_blob_sas,BlobSasPermissions
 from azure.cognitiveservices.vision.computervision import ComputerVisionClient
@@ -118,7 +101,6 @@ if not any(mount.mountPoint == mount_point for mount in dbutils.fs.mounts()):
 #     except Exception as e:
 #         print(f"Error generating embeddings: {e}")
 #         return None
-
 
 # COMMAND ----------
 
@@ -306,9 +288,11 @@ def get_context(question:str,
 
 input_img = dbutils.widgets.get("img_input")
 text_input=dbutils.widgets.get("text_input")
+uploaded=dbutils.widgets.get("uploaded_by")
+
 print("###############################")
 print(text_input)
-uploaded=dbutils.widgets.get("uploaded_by")
+
 
 if (text_input!="" and input_img!="") or input_img!="":
     flag="input_is_image"
@@ -350,7 +334,6 @@ for img in image_list:
 
 id_list=[ context[i][0]for i in range (len(context))]
 generated_tags_list=[ context[i][2] for i in range (len(context))]
-# image_file_path_list=[ context[i][1] for i in range (len(context))]
 
 # COMMAND ----------
 
