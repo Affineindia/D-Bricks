@@ -35,7 +35,7 @@ def intellisearch():
             ## input user query
             text_input=col1.text_input("Text search ::")
             ## Input user query image
-            uploaded_file=col2.file_uploader("Image Search ::",type=["png", "jpg", "jpeg", "gif", "bmp", "tiff"])
+            uploaded_file=col2.file_uploader("Image Search ::",type=["png", "jpg", "jpeg", "gif", "bmp", "tiff","webp","jfif"])
             button=col1.button("Search")
             if button:
                 if uploaded_file is not None:
