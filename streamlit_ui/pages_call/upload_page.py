@@ -2,20 +2,14 @@ import streamlit as st
 from io import BytesIO
 import zipfile
 import os
-from azure.storage.blob import BlobServiceClient
 import datetime
-import databricks.sql as dbsql
-import uuid
-import requests
-import json
-import time
 from src.databricks_job_run import DatabrickJob
 from src.data_load import AzureStorage
 
 def upload_and_run():
     if st.session_state.login_flag:
         # Streamlit app
-        st.title("Upload and Unzip a File")
+        st.title("Upload a Files")
         # model="GPT-4o"
         model=st.selectbox("Select Model ::",['gpt-4o','llava'])
         batch_name=st.text_input("Batch Name ::",max_chars=20)
