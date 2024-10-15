@@ -1,6 +1,5 @@
 import streamlit as st
 import databricks.sql as dbsql
-# from pages.user_add_page import user_add
 from src.login_call import UserData
 import streamlit as st
 
@@ -24,14 +23,15 @@ def login():
     </h2>
     </div>
     """, unsafe_allow_html=True) 
+
     with st.form("login_form"):
+        ## Input User Data
         email_id = st.text_input("Email ID",placeholder="xyz.d@affine.ai")
         user_pass=st.text_input("Password", placeholder="admin@123",type="password")
         col1, col2 = st.columns(2)
         login = col1.form_submit_button("Login")
         # register_user = col2.form_submit_button("Register User")
    
-
     if login:
         st.session_state.login_flag, st.session_state.login_user_type=UserData().login(email_id,user_pass)
 

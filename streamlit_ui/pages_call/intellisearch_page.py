@@ -1,18 +1,10 @@
+## Import all the dependencies
 import streamlit as st
 import pandas as pd
 from src.databricks_job_run import DatabrickJob
 from src.data_load import AzureStorage,DatabrickSqlTable
 import ast
 
-from azure.storage.blob import BlobServiceClient
-import databricks.sql as dbsql
-from PIL import Image
-import base64
-import requests
-import json
-import datetime
-import time
-import io
 
 
 def intellisearch():
@@ -40,15 +32,16 @@ def intellisearch():
             search_option=st.radio("",["AI Search","TagSearch"],horizontal=True)
         
         if search_option=="AI Search":
-            # with st.sidebar:
+            ## input user query
             text_input=col1.text_input("Text search ::")
+            ## Input user query image
             uploaded_file=col2.file_uploader("Image Search ::",type=["png", "jpg", "jpeg", "gif", "bmp", "tiff"])
             button=col1.button("Search")
             if button:
                 if uploaded_file is not None:
                     file_name=uploaded_file.name
                     blob_name=AzureStorage().search_upload_blob(file_name,uploaded_file)
-                    ## image Search
+                    ## image Search and image + text search
                     try:
                         if not text_input:
                             text_input=""
@@ -90,14 +83,13 @@ def intellisearch():
                             filter_ids=[]
                     except:
                         filter_ids=[]
-                
                 print(filter_ids)
             else:
                 filter_ids=[]    
 
             st.session_state.file_data=DatabrickSqlTable().filter_data(st.session_state.login_user,filter_ids)
-            
             st.session_state.file_data_flag=True
+
             if st.session_state.file_data_flag:
                 list_of_url=st.session_state.file_data['file_path'].to_list()
                 list_of_ids=st.session_state.file_data['id'].to_list()
@@ -113,28 +105,16 @@ def intellisearch():
                 for img_path in list_of_url:
                     if img_path not in st.session_state.images_url.keys():
                         img_str_1=AzureStorage().read_image(img_path)
-                        # st.session_state.image_paths.append(img_path)
                         st.session_state.images_url[img_path]=img_str_1
 
                 ## Get the images sequienclly from the session dictionary
                 img_str=[st.session_state.images_url[url] for url in list_of_url]
                 print("img_str ::",len(img_str))
-                    
-                    # st.session_state.img_str.append(img_str_1)
-                print("img_str ::",len(img_str))
-                if len(img_str)!=0: #st.session_state.img_str
+                
+                if len(img_str)!=0: 
                     image_counter = 0
-                    for n,img_str in enumerate(img_str): #st.session_state.img_str
+                    for n,img_str in enumerate(img_str): 
                         with columns[image_counter % 4]:
-                            # if st.checkbox("", key=list_of_ids[n]):
-                            #     st.session_state.selected_images.append(list_of_ids[n])
-                            # st.image(img, caption=img_path)
-                            # img_html = f'''
-                            # <div style="text-align:flex;padding-top:10px">
-                            #     <img src="data:image/png;base64,{img_str}" style="height:200px;width:200px;border:black 2px solid;">
-                            # </div>
-                            # '''
-                            # st.markdown(img_html, unsafe_allow_html=True)
                             st.markdown("""
                                     <style>
                                     .hover-container {
@@ -207,48 +187,49 @@ def intellisearch():
                             </div>
                         """, unsafe_allow_html=True)
                         image_counter += 1
-                    # st.text(st.session_state.selected_images)
-                    # view_flag=True #st.button("View",)
-                    # if view_flag:
-                    #     view_tag()
         else:
-           ## Keyword Based Search
+            ## Keyword Based Search
             file_data=DatabrickSqlTable().featch_keywords_data(st.session_state.login_user)
 
-            all_list=[]
+            ## List of tags dictionaries
+            all_tags_list=[]
             for n,data in enumerate(file_data[['final_predictor','id']].iterrows()):
                 i=data[1]['final_predictor']
                 id=data[-1]['id']
                 list_of_dict=ast.literal_eval(i[i.find("["):i.find("]")+1])
                 for dict1 in list_of_dict:
                     dict1['id']=id
-                all_list.extend(list_of_dict)
-                # print(all_list)
-            df=pd.DataFrame(all_list)
+                all_tags_list.extend(list_of_dict)
+            
+            ## Dataframe of all products generated tags
+            df=pd.DataFrame(all_tags_list)
 
-            # st.markdown(unique_values_dict)
             with st.sidebar:
                 ## Finding unique values in each column and creating a dictionary
                 unique_values_dict = {col: df[col].unique().tolist() for col in df.columns}
+                ## Apply the filter on the Product Category column
                 filter_products_types=st.multiselect("Product Category",unique_values_dict['products category'])
+
                 if filter_products_types:
                     df=df.loc[df['products category'].isin(filter_products_types)]
 
                 ## Finding unique values in each column and creating a dictionary
                 unique_values_dict = {col: df[col].unique().tolist() for col in df.columns}
+                ## Apply the filter on the Products column
                 filter_products=st.multiselect("Products",unique_values_dict['Products'])
+
                 if filter_products:
                     df=df.loc[df['Products'].isin(filter_products)]
                 
                 ## Finding unique values in each column and creating a dictionary
                 unique_values_dict = {col: df[col].unique().tolist() for col in df.columns}
+                ## Apply the filter on the gender column
                 filter_gender=st.multiselect("Gender",unique_values_dict['Gender'])
+
                 if filter_gender:
                     df=df.loc[df['Gender'].isin(filter_gender)]
 
-
             ids=df['id'].unique()
-
             df2=file_data.loc[file_data['id'].isin(ids)]
             
             list_of_url=df2['file_path'].to_list()
@@ -265,25 +246,15 @@ def intellisearch():
             for img_path in list_of_url:
                 if img_path not in st.session_state.images_url.keys():
                     img_str_1=AzureStorage().read_image(img_path)
-                    # st.session_state.image_paths.append(img_path)
                     st.session_state.images_url[img_path]=img_str_1
 
             img_str=[st.session_state.images_url[url] for url in list_of_url]
             print("img_str ::",len(img_str))
 
-            if len(img_str)!=0: # st.session_state.img_str
+            if len(img_str)!=0:
                 image_counter = 0
-                for n,img_str in enumerate(img_str): #st.session_state.img_str
+                for n,img_str in enumerate(img_str): 
                     with columns[image_counter % 4]:
-                        # if st.checkbox("", key=list_of_ids[n]):
-                        #     st.session_state.selected_images.append(list_of_ids[n])
-                        # st.image(img, caption=img_path)
-                        # img_html = f'''
-                        # <div style="text-align:flex;padding-top:10px">
-                        #     <img src="data:image/png;base64,{img_str}" style="height:200px;width:200px;border:black 2px solid;">
-                        # </div>
-                        # '''
-                        # st.markdown(img_html, unsafe_allow_html=True)
                         st.markdown("""
                                 <style>
                                 .hover-container {
@@ -356,7 +327,6 @@ def intellisearch():
                         </div>
                     """, unsafe_allow_html=True)
                     image_counter += 1
-
     else:
         with st.sidebar:
             st.info("Please Login first")

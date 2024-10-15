@@ -8,16 +8,9 @@ from pages_call.intellisearch_page import intellisearch
 from pages_call.view_tags_page import view_tag
 
 
+st.set_page_config(page_title="Assetfind AI",layout="wide",page_icon="https://affine.ai/wp-content/uploads/2024/06/logo.png")
 
-st.set_page_config(layout="wide")
-
-# st.logo("https://affine.ai/wp-content/uploads/2024/06/logo.png", icon_image="https://affine.ai/wp-content/uploads/2024/06/logo.png")
-
-def clear_session(key):
-    print(key)
-    st.session_state.clear()
-
-
+## Session state variables
 if "login_flag" not in st.session_state:
     st.session_state.login_flag=False
 
@@ -48,7 +41,7 @@ if "tag_data" not in st.session_state:
 if "img_url_tag" not in st.session_state:
     st.session_state.img_url_tag=[]
 
-
+## Intellisearch
 if "images_url" not in st.session_state:
     st.session_state.images_url={}
 
@@ -91,4 +84,4 @@ elif choose == "View Tags":
     view_tag()
 
 else:
-    st.write('yet not written')
+    st.info('Please Select Appropriate Choice')

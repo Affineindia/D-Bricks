@@ -12,7 +12,7 @@ import pandas as pd
 import base64
 from azure.storage.blob import BlobServiceClient
 from src.data_load import DatabrickSqlTable,AzureStorage
-
+from collections import OrderedDict
 
 def view_tag():
     st.markdown("""
@@ -33,15 +33,11 @@ def view_tag():
     </div>
     """, unsafe_allow_html=True) 
     if st.session_state.login_flag:
-
-        # if st.session_state.user_upload_flag_view_tags:
-            ## tags data loading
+        ## Fetch the tags data
         st.session_state.tag_data=DatabrickSqlTable().featch_keywords_data(st.session_state.login_user)
-            # st.session_state.user_upload_flag_view_tags=False
+        # st.session_state.user_upload_flag_view_tags=False
 
-        # st.dataframe(st.session_state.tag_data)
         ids_list=st.session_state.tag_data['id'].to_list()
-        # img_url_list=[read_image(url) for url in st.session_state.tag_data['file_path'].to_list()]
         img_url_list=st.session_state.tag_data['file_path'].to_list()
         list_of_img_name=st.session_state.tag_data['image_name'].to_list()
         list_of_uploaded_by=st.session_state.tag_data['created_by'].to_list()
@@ -72,9 +68,6 @@ def view_tag():
             on_change=selected_id
 
         with col1:
-            #  st.markdown(f"""<div class="hover-container">
-            #                 <img src="data:image/png;base64,{st.session_state.selected_url}" style="height:600px;width:400px;border:black 0.2px solid;">
-            #                 </div>""",unsafe_allow_html=True)
              st.markdown("""
                                 <style>
                                 .hover-container {
@@ -144,19 +137,6 @@ def view_tag():
                             </div>
                         </div>
                     """, unsafe_allow_html=True)
-        # def merge_dicts(dict1, dict2):
-        #     merged_dict = {}
-        #     for key in dict1.keys() | dict2.keys():  # Union of keys from both dictionaries
-        #         value1 = dict1.get(key, "")
-        #         value2 = dict2.get(key, "")
-        #         # If both values are non-empty and not the same, concatenate them
-        #         if value1 and value2 and value1 != value2:
-        #             merged_dict[key] = f"{value1}, {value2}"
-        #         else:
-        #             # Otherwise, keep the non-empty value or an empty string if both are empty
-        #             merged_dict[key] = value1 or value2
-        #     return merged_dict
-        from collections import OrderedDict
 
         def merge_dicts_in_order(dict1, dict2):
             # Start with dict1 to preserve its order
@@ -193,7 +173,6 @@ def view_tag():
             print(st.session_state.product_dict)
             print("-----------------------------------------------------------------")
             with col2:
-                
                 select_tabs = ui.tabs(options=st.session_state.Product_listed,
                                     default_value=st.session_state.Product_listed[0], key="main_tabs")
                 if select_tabs in st.session_state.Product_listed:
