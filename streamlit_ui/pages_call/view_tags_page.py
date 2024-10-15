@@ -1,5 +1,5 @@
 import streamlit as st
-from streamlit_image_select import image_select
+# from streamlit_image_select import image_select
 from PIL import Image
 import numpy as np
 import databricks.sql as dbsql
