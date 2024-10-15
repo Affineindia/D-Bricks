@@ -7,7 +7,7 @@ import streamlit as st
 
 def login():
     st.markdown("""
-    <div style='text-align: center; margin-top:-50px; margin-bottom: 20px;margin-left: -50px;'>
+    <div style='text-align: center; margin-top:-60px; margin-bottom: 100px;margin-left: -50px;'>
     <h2 style='font-size: 60px; font-family: Courier New, monospace;
                     letter-spacing: 2px; text-decoration: none;'>
     <img src="https://acis.affineanalytics.co.in/assets/images/logo_small.png" alt="logo" width="70" height="60">
@@ -15,7 +15,7 @@ def login():
                             -webkit-background-clip: text;
                             -webkit-text-fill-color: transparent;
                             text-shadow: none;'>
-                    Assetfind AI
+                    AssetFind AI
     </span>
     <span style='font-size: 60%;'>
     <sup style='position: relative; top: 5px; color:white ;'>by Affine</sup> 
@@ -23,8 +23,8 @@ def login():
     </h2>
     </div>
     """, unsafe_allow_html=True) 
-
-    with st.form("login_form"):
+    col1,col2,col3=st.columns([0.5,1,1])
+    with col2.form("login_form"):
         ## Input User Data
         email_id = st.text_input("Email ID",placeholder="xyz.d@affine.ai")
         user_pass=st.text_input("Password", placeholder="admin@123",type="password")

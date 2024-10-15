@@ -8,7 +8,7 @@ from pages_call.intellisearch_page import intellisearch
 from pages_call.view_tags_page import view_tag
 
 
-st.set_page_config(page_title="Assetfind AI",layout="wide",page_icon="https://affine.ai/wp-content/uploads/2024/06/logo.png")
+st.set_page_config(page_title="Assetfind AI",layout="wide",page_icon="https://acis.affineanalytics.co.in/assets/images/logo_small.png")
 
 ## Session state variables
 if "login_flag" not in st.session_state:
