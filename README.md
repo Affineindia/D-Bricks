@@ -8,11 +8,11 @@ This project automates the identification and tagging of key product attributes 
 
 ### Table of Contents
 1. [Folder Structure](#folder-structure)
-2. [Technologies Used](#)
-3. [Technical Architecture](#)
-4. [Databricks LLMOPs Architecture](#)
-5. [Databricks Workflows](#)
-6. [Streamlit UI](#)
+2. [Technologies Used](#technologies-used)
+3. [Technical Architecture](#technical-architecture)
+4. [Databricks LLMOPs Architecture](#databricks-llmops-architecture)
+5. [Databricks Workflows](#databricks-workflows)
+6. [How to Run the Streamlit Application](#how-t0-run-the-streamlit-application)
 
 
 ## Folder Structure
@@ -54,7 +54,7 @@ Here is the structure of the project:
   └── README.md
 ```
 --------------------------------------------
-## 2. Technologies Used
+## Technologies Used
 1. **Azure Databricks**: 
 
       Offers a unified platform for processing, analyzing, and generating insights from data, while facilitating the seamless integration of LLM models and automated workflows.
@@ -102,20 +102,20 @@ Here is the structure of the project:
       Python-based framework used to develop the interactive dashboard, allowing users to upload images, perform keyword-based searches, and view results in real time.
 
 ------------------------------------------------------------------------
-## 3. Technical Architecture
+## Technical Architecture
 
 Below is the technical architecture of intelliTags and intelliSearch tool.
 ![image](https://github.com/user-attachments/assets/9ccece55-4d4c-4cea-b094-3a2736b7ea29)
 
 
 ------------------------------------------------------------------
-## 4. Databricks LLMOPs Architecture
+## Databricks LLMOPs Architecture
 ![image](https://github.com/user-attachments/assets/964e9ecc-d53f-4e8b-8a50-c52cc140db76)
 
 
 
 -----------------------------------------------------------------
-## 5. Databricks Workflows
+## Databricks Workflows
 
 ### DAG Flow Overview
 
@@ -167,7 +167,7 @@ This documentation provides a comprehensive overview of the DAG flow within the 
 ![image](https://github.com/user-attachments/assets/17d91db7-18d4-4780-a576-ae5e4def8326)
 
 
-## 6. How to Run the Streamlit Application
+## How to Run the Streamlit Application
 
 1. Clone the Repository
   Run the following command to clone the repository:
