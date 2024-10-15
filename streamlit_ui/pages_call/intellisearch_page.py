@@ -25,7 +25,7 @@ def intellisearch():
     </h2>
     </div>
     """, unsafe_allow_html=True) 
-    col1,col2,col3=st.columns([1,1,1])
+    col1,col2=st.columns([1,1])
     if st.session_state.login_flag:
         with st.sidebar:
             st.divider()
