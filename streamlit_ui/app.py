@@ -49,6 +49,10 @@ if "img_url_tag" not in st.session_state:
     st.session_state.img_url_tag=[]
 
 
+if "images_url" not in st.session_state:
+    st.session_state.images_url={}
+
+
 
 # Use Streamlit to create a sidebar with multiple flow options
 with st.sidebar:
