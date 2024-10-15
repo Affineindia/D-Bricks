@@ -7,7 +7,7 @@ This project automates the identification and tagging of key product attributes 
 
 
 ### Table of Contents
-1. [Folder Structure](#folder-structure)
+1. [Folder Structure](#---folder-structure)
 2. [Technologies Used](#)
 3. [Technical Architecture](#)
 4. [Databricks LLMOPs Architecture](#)
