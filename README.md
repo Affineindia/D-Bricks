@@ -12,7 +12,7 @@ This project automates the identification and tagging of key product attributes 
 3. [Technical Architecture](#technical-architecture)
 4. [Databricks LLMOPs Architecture](#databricks-llmops-architecture)
 5. [Databricks Workflows](#databricks-workflows)
-6. [How to Run the Streamlit Application](#how-t0-run-the-streamlit-application)
+6. [How to Run the Streamlit Application](#how-to-run-the-streamlit-application)
 
 
 ## Folder Structure
