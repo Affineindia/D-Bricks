@@ -9,8 +9,8 @@ This project automates the identification and tagging of key product attributes 
 ### Table of Contents
 1. [Folder Structure](#folder-structure)
 2. [Technologies Used](#)
-3. [Intellitag flow Diagram](#)
-4. [IntelliSearch Flow Diagram](#)
+3. [Technical Architecture](#)
+4. [Databricks LLMOPs Architecture](#)
 5. [Databricks Workflows](#)
 6. [Streamlit UI](#)
 
@@ -102,11 +102,15 @@ Here is the structure of the project:
       Python-based framework used to develop the interactive dashboard, allowing users to upload images, perform keyword-based searches, and view results in real time.
 
 ------------------------------------------------------------------------
-## 3. IntelliTag Flow Diagram
+## 3. Technical Architecture
+
+Below is the technical architecture of intelliTags and intelliSearch tool.
+![image](https://github.com/user-attachments/assets/9ccece55-4d4c-4cea-b094-3a2736b7ea29)
 
 
 ------------------------------------------------------------------
-## 4. IntelliSearch Flow Diagram
+## 4. Databricks LLMOPs Architecture
+![image](https://github.com/user-attachments/assets/964e9ecc-d53f-4e8b-8a50-c52cc140db76)
 
 
 
