@@ -28,8 +28,8 @@ def login():
         ## Input User Data
         email_id = st.text_input("Email ID",placeholder="xyz.d@affine.ai")
         user_pass=st.text_input("Password", placeholder="admin@123",type="password")
-        col1, col2 = st.columns(2)
-        login = col1.form_submit_button("Login")
+        col4, col5 = st.columns(2)
+        login = col4.form_submit_button("Login")
         # register_user = col2.form_submit_button("Register User")
    
     if login:
