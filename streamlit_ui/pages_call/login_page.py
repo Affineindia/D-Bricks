@@ -37,10 +37,10 @@ def login():
 
         if st.session_state.login_flag:
             st.session_state.login_user=email_id
-            st.success("Login successfully")
+            col2.success("Login successfully")
         else:
             st.session_state.login_user=None
-            st.error("Failed to login, please try again later")
+            col2.error("Failed to login, please try again later")
 
        
            
