@@ -1,0 +1,16 @@
+streamlit-shadcn-ui>=0.1.18
+streamlit==1.28.1
+streamlit_extras
+pandas
+Pillow
+pyyaml
+streamlit_js_eval
+autogen
+pyautogen
+matplotlib
+seaborn
+timm
+azure-cognitiveservices-vision-computervision==0.9.0
+databricks-vectorsearch==0.22
+einops
+msrest
