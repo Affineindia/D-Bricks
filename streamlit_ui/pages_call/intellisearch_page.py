@@ -8,6 +8,8 @@ import ast
 
 
 def intellisearch():
+    """`Streamlit UI IntelliSearch Page` - This page includes both `Semantic Search (AI Search)` and `Tag Search` functionalities."""
+    ## Page Header
     st.markdown("""
     <div style='text-align: center; margin-top:-50px; margin-bottom: 20px;margin-left: -50px;'>
     <h2 style='font-size: 60px; font-family: Courier New, monospace;
@@ -25,48 +27,66 @@ def intellisearch():
     </h2>
     </div>
     """, unsafe_allow_html=True) 
+    ## split the display into two columns 
     col1,col2=st.columns([1,1])
+
+    ## if user login flag is `True` then will display the page
     if st.session_state.login_flag:
+
+        ## select appropriate search options
         with st.sidebar:
             st.divider()
             search_option=st.radio("",["AI Search","TagSearch"],horizontal=True)
         
+        ## if user select the `AI Search` option
         if search_option=="AI Search":
             ## input user query
             text_input=col1.text_input("Text search ::")
             ## Input user query image
             uploaded_file=col2.file_uploader("Image Search ::",type=["png", "jpg", "jpeg", "gif", "bmp", "tiff","webp","jfif"])
+            ## Click on the `Search` button to excute the search
             button=col1.button("Search")
             if button:
+                ## Store the image in blob storage if the user uploads an image for query
                 if uploaded_file is not None:
                     file_name=uploaded_file.name
                     blob_name=AzureStorage().search_upload_blob(file_name,uploaded_file)
-                    ## image Search and image + text search
+                    ## Approach -1 :: image Search and image + text search
                     try:
                         if not text_input:
                             text_input=""
-                        # job_id=367189284162575
+                        ## Load the intellisearch job id from streamlit secrets
                         job_id=st.secrets.credentials.intellisearch_job_id
+
+                        ## input notebbok parameter to run the job 
                         data = {"job_id": job_id,
                                 "notebook_params": {"img_input": blob_name,
                                                 "text_input": text_input,
                                                 "uploaded_by":st.session_state.login_user
                                                 }
                                 }
+                        ## Pass the parameters and return the run ID of the job    
                         run_id,_=DatabrickJob().job_runs(job_id,
                                                 data)
-                        print("Run ID::",run_id)
+                        print("Run the job successfully..")
+                        ## Retrieve the results of a job by its run ID using the Databricks API.
                         output=DatabrickJob().get_job_result(run_id)
+                        # Evaluate the result of the notebook output to extract the "ids" from the output.
+                        # If the result is "No list found in the text.", initialize filter_ids as an empty list.
                         filter_ids=eval(output["notebook_output"]["result"])["ids"]
                         if filter_ids=="No list found in the text.":
                             filter_ids=[]
                     except:
                         filter_ids=[]
                 else:
-                    ## Text Search
+                    ## Approach 2 :: Text Search
                     try:
+                        # For text-only search, initialize the `image_base64` variable as an empty string.
                         img_base64=""
+                        ## Load the intellisearch job id from streamlit secrets
                         job_id=st.secrets.credentials.intellisearch_job_id
+
+                        ## input notebbok parameter to run the job 
                         data = {
                             "job_id": job_id,
                             "notebook_params": {
@@ -75,9 +95,13 @@ def intellisearch():
                                                 "uploaded_by":st.session_state.login_user
                                                 }
                                 }
+                        ## Pass the parameters and return the run ID of the job 
                         run_id,_=DatabrickJob().job_runs(job_id,data)
-                        print("Run ID::",run_id)
+                        print("Run the job successfully..")
+                        ## fetch the output results using the run id
                         output=DatabrickJob().get_job_result(run_id)
+                        # Evaluate the result of the notebook output to extract the "ids" from the output.
+                        # If the result is "No list found in the text.", initialize filter_ids as an empty list.
                         filter_ids=eval(output["notebook_output"]["result"])["ids"]
                         if filter_ids=="No list found in the text.":
                             filter_ids=[]
@@ -86,11 +110,13 @@ def intellisearch():
                 print(filter_ids)
             else:
                 filter_ids=[]    
-
+            
+            # Filter the Table by using the unique ids of assets
             st.session_state.file_data=DatabrickSqlTable().filter_data(st.session_state.login_user,filter_ids)
             st.session_state.file_data_flag=True
 
             if st.session_state.file_data_flag:
+                # Extract various columns from the session state file data and print the lengths of the lists, then create 4 layout columns in Streamlit.
                 list_of_url=st.session_state.file_data['file_path'].to_list()
                 list_of_ids=st.session_state.file_data['id'].to_list()
                 list_of_img_name=st.session_state.file_data['image_name'].to_list()
@@ -111,8 +137,11 @@ def intellisearch():
                 img_str=[st.session_state.images_url[url] for url in list_of_url]
                 print("img_str ::",len(img_str))
                 
+                ## at least 1 image data should present in the `img_str` dict
                 if len(img_str)!=0: 
                     image_counter = 0
+
+                    ## Assets images should visualize on ui
                     for n,img_str in enumerate(img_str): 
                         with columns[image_counter % 4]:
                             st.markdown("""
@@ -194,9 +223,12 @@ def intellisearch():
             ## List of tags dictionaries
             all_tags_list=[]
             for n,data in enumerate(file_data[['final_predictor','id']].iterrows()):
-                i=data[1]['final_predictor']
+                ## List of tags dictionaries
+                final_tags_list=data[1]['final_predictor']
+                ## unique id's of assets
                 id=data[-1]['id']
-                list_of_dict=ast.literal_eval(i[i.find("["):i.find("]")+1])
+                list_of_dict=ast.literal_eval(final_tags_list[final_tags_list.find("["):final_tags_list.find("]")+1])
+                ## adding the unique id of assets to all generated tag list
                 for dict1 in list_of_dict:
                     dict1['id']=id
                 all_tags_list.extend(list_of_dict)
@@ -328,6 +360,7 @@ def intellisearch():
                     """, unsafe_allow_html=True)
                     image_counter += 1
     else:
+        ## If user has not logged in, then below message will be displayed.
         with st.sidebar:
             st.info("Please Login first")
 

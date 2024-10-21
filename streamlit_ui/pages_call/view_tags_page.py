@@ -15,6 +15,8 @@ from src.data_load import DatabrickSqlTable,AzureStorage
 from collections import OrderedDict
 
 def view_tag():
+    """Function to Display the generated tags"""
+    # View Tags header
     st.markdown("""
     <div style='text-align: center; margin-top:-50px; margin-bottom: 20px;margin-left: -50px;'>
     <h2 style='font-size: 60px; font-family: Courier New, monospace;

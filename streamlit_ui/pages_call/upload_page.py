@@ -7,16 +7,21 @@ from src.databricks_job_run import DatabrickJob
 from src.data_load import AzureStorage
 
 def upload_and_run():
+    # Check if user is logged in
     if st.session_state.login_flag:
         # Streamlit app
         st.title("Upload a Files")
-        # model="GPT-4o"
+        # # Dropdown to select model. models="GPT-4o , LLava"
         model=st.selectbox("Select Model ::",['gpt-4o','llava'])
+        # Input for batch name, with character limit
         batch_name=st.text_input("Batch Name ::",max_chars=20)
+        # Append timestamp to batch name
         batch_name=batch_name+"-" +str(datetime.datetime.now())
+        # File uploader for zip and image files
         uploaded_files = st.file_uploader("Choose a ZIP file", type=["zip","png", "jpg", "jpeg", "gif", "bmp", "tiff","webp","jfif"],accept_multiple_files=True)
         button=st.button("Upload")
         created_at=datetime.datetime.now()
+
         if button:
             # st.session_state.user_upload_flag_view_tags=True
             if uploaded_files is not None:
@@ -62,7 +67,7 @@ def upload_and_run():
                             folder_name=batch_name #"images_uploads"
                             file_name=uploaded_file.name
                             file_size = uploaded_file.size
-                            
+                            ## The uplaoded file size should be less thean 20MB
                             if file_size < 20 * 1024 * 1024:
                                 file_metadata={"Image Name":file_name,
                                                 "Batch Name":batch_name,
@@ -90,12 +95,13 @@ def upload_and_run():
 
                 false_count=run_flag_list.count(False)
                 if len(run_flag_list)!=false_count:
-                    ## Keyword extraction
+                    ## Job ID of Keyword Extraction and Embedding of Images/Text Code Pipelines
                     job_id=st.secrets.credentials.Keyword_extraction_job_id # 1062717292802339
-
+                    ## Log the system timestamp
                     tag_generated_at=str(datetime.datetime.now())
                     print()
                     print(" Time ::",tag_generated_at)
+                    ## Input notebook parameters
                     data = {
                         "job_id": job_id,
                         "notebook_params": {
@@ -103,6 +109,7 @@ def upload_and_run():
                                             "generatedat": tag_generated_at,
                                             }
                             }       
+                    ## Run id
                     run_id,_=DatabrickJob().job_runs(job_id,data)
                     # output_data=get_job_result(run_id)
                     # if output_data:
@@ -112,6 +119,7 @@ def upload_and_run():
                 else:
                     print("No need to run")
     else:
+        ## If user has not logged in, then below message will be displayed.
         with st.sidebar:
             st.info("Please Login first")
 

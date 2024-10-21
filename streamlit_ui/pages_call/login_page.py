@@ -6,6 +6,9 @@ import streamlit as st
 
 
 def login():
+    """Streamlit UI Login Page"""
+    
+    ## Login Page Header
     st.markdown("""
     <div style='text-align: center; margin-top:-60px; margin-bottom: 100px;margin-left: -50px;'>
     <h2 style='font-size: 60px; font-family: Courier New, monospace;
@@ -23,7 +26,11 @@ def login():
     </h2>
     </div>
     """, unsafe_allow_html=True) 
+
+    # Split the page and display the login form centered on the page.
     col1,col2,col3=st.columns([0.5,1,1])
+
+    ## login page
     with col2.form("login_form"):
         ## Input User Data
         email_id = st.text_input("Email ID",placeholder="xyz.d@affine.ai")
@@ -31,15 +38,20 @@ def login():
         col4, col5 = st.columns(2)
         login = col4.form_submit_button("Login")
         # register_user = col2.form_submit_button("Register User")
-   
+
+    # Check if the user has clicked the login button or triggered the login process
     if login:
         st.session_state.login_flag, st.session_state.login_user_type=UserData().login(email_id,user_pass)
 
-        if st.session_state.login_flag:
+        if st.session_state.login_flag: # If login is successful
+            # Store the logged-in user's email in session state
             st.session_state.login_user=email_id
+            # Show success message
             col2.success("Login successfully")
-        else:
-            st.session_state.login_user=None
+        else: # If login fails
+            # Reset the login user in session state to None
+            st.session_state.login_user=None 
+            # Show error message    
             col2.error("Failed to login, please try again later")
 
        
