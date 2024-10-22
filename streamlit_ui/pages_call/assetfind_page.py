@@ -7,7 +7,7 @@ import ast
 
 
 
-def intellisearch():
+def assetfind():
     """`Streamlit UI IntelliSearch Page` - This page includes both `Semantic Search (AI Search)` and `Tag Search` functionalities."""
     ## Page Header
     st.markdown("""
