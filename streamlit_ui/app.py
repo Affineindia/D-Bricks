@@ -4,7 +4,7 @@ import pandas as pd
 from pages_call.upload_page import upload_and_run
 from pages_call.user_add_page import user_add
 from pages_call.login_page import login
-from pages_call.intellisearch_page import intellisearch
+from pages_call.assetfind_page import assetfind
 from pages_call.view_tags_page import view_tag
 
 
@@ -78,7 +78,7 @@ elif choose == "Add User":
     user_add()
 
 elif choose == "Image Gallery":
-    intellisearch()
+    assetfind()
 
 elif choose == "View Tags":
     view_tag()

@@ -1,9 +1,9 @@
-# Assetfind AI- IntelliTag & IntelliSearch Tool 
+# Assetfind AI- AssetTag & AssetFind Tool 
 ~ *Databricks Hackathon*
 
 
 ### Description
-This project automates the identification and tagging of key product attributes using prompt engineering and Multimodel LLM (Ex. GPT-4O & LLava). It integrates a GenAI-based search engine for image-to-image and text-to-image searches, leveraging Azure OpenAI/ Databricks LLMs and other Databricks capabilities. Databricks Unity Catalog is used to store and manage data, while scheduled jobs handle automated runs. The output is an interactive dashboard for seamless image uploads and attribute-based search.
+This project automates the identification and tagging of key product attributes using prompt engineering and Multimodal LLM (e.g. GPT-4O & LLava). It integrates a GenAI-based search engine for searching the right assets (Retrieval Augmented Search) and also GenAI-generated tags-based search, leveraging Azure OpenAI/Databricks LLMs and other Databricks capabilities. Databricks Unity Catalog is used to store and manage data, while scheduled jobs handle automated runs. The output is an interactive dashboard for seamless image uploads and attribute-based search.
 
 
 ### Table of Contents
@@ -23,8 +23,8 @@ Here is the structure of the project:
   │
   ├── jobs/
   │   ├── demo - Embeddings_Indexing
-  │   ├── demo - Intelli Tag
-  │   ├── demo - Intellisearch
+  │   ├── demo - Asset Tag
+  │   ├── demo - Asset Find
   │   └── requirements.txt
   │    
   ├── notebook/   
@@ -32,12 +32,11 @@ Here is the structure of the project:
   │   └── Evaluation_without_and_with_agent  # custom evaluation matrix defined
   │   
   ├── streamlit ui/  
-  │   ├── Dockerfile
-  │   ├── requirements.txt
+  │   ├── Dockerfile  # dockerfile to containerize the application
   │   ├── app.py
   │   ├──.dockerignore
   │   ├── pages_call/
-  │   │   ├── intellisearch_page.py
+  │   │   ├── assetfind_page.py
   │   │   ├── login_page.py
   │   │   ├── upload_page.py
   │   │   ├── user_add_page.py
@@ -51,6 +50,7 @@ Here is the structure of the project:
   │       └── processing.py
   │
   ├── .gitignore
+  ├── requirements.txt
   └── README.md
 ```
 --------------------------------------------
