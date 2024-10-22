@@ -8,7 +8,7 @@ import ast
 
 
 def assetfind():
-    """`Streamlit UI IntelliSearch Page` - This page includes both `Semantic Search (AI Search)` and `Tag Search` functionalities."""
+    """`Streamlit UI AssetFind Page` - This page includes both `Semantic Search (AI Search)` and `Tag Search` functionalities."""
     ## Page Header
     st.markdown("""
     <div style='text-align: center; margin-top:-50px; margin-bottom: 20px;margin-left: -50px;'>
@@ -19,7 +19,7 @@ def assetfind():
                             -webkit-background-clip: text;
                             -webkit-text-fill-color: transparent;
                             text-shadow: none;'>
-                    Intelli-Search
+                    AssetFind AI
     </span>
     <span style='font-size: 60%;'>
     <sup style='position: relative; top: 5px; color:white ;'>by Affine</sup> 
@@ -55,8 +55,8 @@ def assetfind():
                     try:
                         if not text_input:
                             text_input=""
-                        ## Load the intellisearch job id from streamlit secrets
-                        job_id=st.secrets.credentials.intellisearch_job_id
+                        ## Load the asset find job id from streamlit secrets
+                        job_id=st.secrets.credentials.assetfind_job_id
 
                         ## input notebbok parameter to run the job 
                         data = {"job_id": job_id,
@@ -83,8 +83,8 @@ def assetfind():
                     try:
                         # For text-only search, initialize the `image_base64` variable as an empty string.
                         img_base64=""
-                        ## Load the intellisearch job id from streamlit secrets
-                        job_id=st.secrets.credentials.intellisearch_job_id
+                        ## Load the assetfind job id from streamlit secrets
+                        job_id=st.secrets.credentials.assetfind_job_id
 
                         ## input notebbok parameter to run the job 
                         data = {

@@ -26,7 +26,7 @@ def view_tag():
                             -webkit-background-clip: text;
                             -webkit-text-fill-color: transparent;
                             text-shadow: none;'>
-                    Intelli-Tags
+                    AssetTag AI
     </span>
     <span style='font-size: 60%;'>
     <sup style='position: relative; top: 5px; color:white ;'>by Affine</sup> 
