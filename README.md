@@ -1,4 +1,4 @@
-# Assetfind AI- IntelliTag & IntelliSearch Tool 
+# Assetfind AI- AssetTag & AssetFind Tool 
 ~ *Databricks Hackathon*
 
 
@@ -23,8 +23,8 @@ Here is the structure of the project:
   │
   ├── jobs/
   │   ├── demo - Embeddings_Indexing
-  │   ├── demo - Intelli Tag
-  │   ├── demo - Intellisearch
+  │   ├── demo - Asset Tag
+  │   ├── demo - Asset Find
   │   └── requirements.txt
   │    
   ├── notebook/   
@@ -36,7 +36,7 @@ Here is the structure of the project:
   │   ├── app.py
   │   ├──.dockerignore
   │   ├── pages_call/
-  │   │   ├── intellisearch_page.py
+  │   │   ├── assetfind_page.py
   │   │   ├── login_page.py
   │   │   ├── upload_page.py
   │   │   ├── user_add_page.py
