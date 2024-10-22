@@ -21,7 +21,7 @@ def login():
                     AssetFind AI
     </span>
     <span style='font-size: 60%;'>
-    <sup style='position: relative; top: 5px; color:white ;'>by Affine</sup> 
+    <sup style='position: relative; top: 5px; color:black ;'>by Affine</sup> 
     </span>
     </h2>
     </div>

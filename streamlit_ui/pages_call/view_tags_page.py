@@ -29,7 +29,7 @@ def view_tag():
                     AssetTag AI
     </span>
     <span style='font-size: 60%;'>
-    <sup style='position: relative; top: 5px; color:white ;'>by Affine</sup> 
+    <sup style='position: relative; top: 5px; color:white ;'></sup> 
     </span>
     </h2>
     </div>
