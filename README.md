@@ -104,7 +104,7 @@ Here is the structure of the project:
 ------------------------------------------------------------------------
 ## Technical Architecture
 
-Below is the technical architecture of intelliTags and intelliSearch tool.
+Below is the technical architecture of AssetTag and AssetFind tool.
 ![image](https://github.com/user-attachments/assets/9ccece55-4d4c-4cea-b094-3a2736b7ea29)
 
 
@@ -189,6 +189,23 @@ pip install -r requirements.txt
 ```bash
 streamlit run app.py --global.developmentMode=false
 ```
+
+## Streamlit UI
+
+1. AssetTag View
+
+![image](https://github.com/user-attachments/assets/d99a4adc-bb0b-43ae-b5c9-8de5e3fb0ee3)
+
+2. AssetFind 
+
+A. Retrieval Augmented Search
+![image](https://github.com/user-attachments/assets/c7567cc2-e567-4c2c-9fd8-b12896c81d18)
+
+B. TagSearch
+![image](https://github.com/user-attachments/assets/0fcc30d2-83d6-459b-9172-c55d24b9b6a1)
+
+
+
 
 
 
