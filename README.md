@@ -11,8 +11,9 @@ This project automates the identification and tagging of key product attributes 
 2. [Technologies Used](#technologies-used)
 3. [Technical Architecture](#technical-architecture)
 4. [Databricks LLMOPs Architecture](#databricks-llmops-architecture)
-5. [Databricks Workflows](#databricks-workflows)
-6. [How to Run the Streamlit Application](#how-to-run-the-streamlit-application)
+5. [Attributes Taxonomy - Fashion Industry](attributes-Taxonomy---fashion-industry)
+6. [Databricks Workflows](#databricks-workflows)
+7. [How to Run the Streamlit Application](#how-to-run-the-streamlit-application)
 
 
 ## Folder Structure
@@ -112,6 +113,11 @@ Below is the technical architecture of AssetTag and AssetFind tool.
 ## Databricks LLMOPs Architecture
 ![image](https://github.com/user-attachments/assets/964e9ecc-d53f-4e8b-8a50-c52cc140db76)
 
+## Attributes Taxonomy - Fashion Industry
+
+![image](https://github.com/user-attachments/assets/7b7f3e9f-b608-40f8-ae98-bad3b33422bc)
+
+![image](https://github.com/user-attachments/assets/4aff3ff5-d521-4b42-a99b-1f4671ad36fb)
 
 
 -----------------------------------------------------------------
