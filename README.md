@@ -199,9 +199,11 @@ streamlit run app.py --global.developmentMode=false
 2. AssetFind 
 
 A. Retrieval Augmented Search
+
 ![image](https://github.com/user-attachments/assets/c7567cc2-e567-4c2c-9fd8-b12896c81d18)
 
 B. TagSearch
+
 ![image](https://github.com/user-attachments/assets/0fcc30d2-83d6-459b-9172-c55d24b9b6a1)
 
 
