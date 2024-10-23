@@ -156,7 +156,7 @@ Below is a detailed breakdown of the tasks within the DAG:
 -------------------------------
 ####  Note
 
-This documentation provides a comprehensive overview of the DAG flow within the Databricks workflow for Intellitag, keyword indexing, and uploaded images as well as Intellisearch. Understanding this flow is essential for effectively managing and optimizing task execution to achieve project objectives efficiently.
+This documentation provides a comprehensive overview of the DAG flow within the Databricks workflow for AssetTag, keyword indexing, and uploaded images as well as AssetFind. Understanding this flow is essential for effectively managing and optimizing task execution to achieve project objectives efficiently.
 
 1. *AssetTag & Indexing of Tags/Images*
 
