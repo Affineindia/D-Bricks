@@ -104,7 +104,7 @@ Here is the structure of the project:
 ------------------------------------------------------------------------
 ## Technical Architecture
 
-Below is the technical architecture of intelliTags and intelliSearch tool.
+Below is the technical architecture of AssetTag and AssetFind tool.
 ![image](https://github.com/user-attachments/assets/9ccece55-4d4c-4cea-b094-3a2736b7ea29)
 
 
@@ -135,36 +135,36 @@ Some tasks in the DAG are executed conditionally based on the outcome of previou
 
 Below is a detailed breakdown of the tasks within the DAG:
 
-1. IntelliTag Task (`Intelli Tag`):
-  - Responsible for generating tags based on the defined taxonomy and prompts, using the `demo - Intelli Tag.py` script. The results are saved into the catalog Delta table.
+1. AssetTag Task (`Asset Tag`):
+  - Responsible for generating tags based on the defined taxonomy and prompts, using the `demo - Asset Tag.py` script. The results are saved into the catalog Delta table.
   - This task is executable on the Databricks cluster.
-  - Indexing of Tags and Images Task (demo - Intellisearch):
+  - Generate the Tags from marketing asset Task (`demo - AssetFind`):
 
-2. Indexes the generated tags and images Task (`Intellisearch`):
+2. Indexes the generated tags and images Task (`Embeddings_Indexing`):
   - Creates the Databricks vector endpoint if it doesn't already exist.
   - Syncs the embedding table with the vector store.
-  - This task depends on the successful completion of the IntelliTag task.
+  - This task depends on the successful completion of the AssetTag task.
 
-3. IntelliSearch Task (`Embeddings_Indexing`):
+3. AssetFind Task (`Asset Find`):
 
   - Runs through the Databricks API.
   - Performs semantic search based on user input data.
-  - Provides recommendations based on user inputs using the `demo - Embeddings_Indexing.py`.
+  - Provides recommendations based on user inputs using the `demo - Asset Find.py`.
 
 
 
 -------------------------------
 ####  Note
 
-This documentation provides a comprehensive overview of the DAG flow within the Databricks workflow for Intellitag, keyword indexing, and uploaded images as well as Intellisearch. Understanding this flow is essential for effectively managing and optimizing task execution to achieve project objectives efficiently.
+This documentation provides a comprehensive overview of the DAG flow within the Databricks workflow for AssetTag, keyword indexing, and uploaded images as well as AssetFind. Understanding this flow is essential for effectively managing and optimizing task execution to achieve project objectives efficiently.
 
-1. *IntelliTag & Indexing of Tags/Images*
+1. *AssetTag & Indexing of Tags/Images*
 
-![image](https://github.com/user-attachments/assets/1ff08e48-fe63-4afa-940a-397119dab861)
+![image](https://github.com/user-attachments/assets/c7481533-db5c-45e1-abc3-1b1f521f419e)
 
-2. *IntelliSearch*
+2. *AssetFind*
 
-![image](https://github.com/user-attachments/assets/17d91db7-18d4-4780-a576-ae5e4def8326)
+![image](https://github.com/user-attachments/assets/a00526b5-73a4-42c5-802a-a48f662b0492)
 
 
 ## How to Run the Streamlit Application
@@ -189,6 +189,25 @@ pip install -r requirements.txt
 ```bash
 streamlit run app.py --global.developmentMode=false
 ```
+
+## Streamlit UI
+
+1. AssetTag View
+
+![image](https://github.com/user-attachments/assets/d99a4adc-bb0b-43ae-b5c9-8de5e3fb0ee3)
+
+2. AssetFind 
+
+A. Retrieval Augmented Search
+
+![image](https://github.com/user-attachments/assets/c7567cc2-e567-4c2c-9fd8-b12896c81d18)
+
+B. TagSearch
+
+![image](https://github.com/user-attachments/assets/0fcc30d2-83d6-459b-9172-c55d24b9b6a1)
+
+
+
 
 
 
